@@ -24,7 +24,7 @@ export class UsersController {
     @Query('limit') limit: number,
     @Query('page') page: number,
     // @Param() params: GetUserParamDto,
-  ): IUser[] {
+  ): IUser[] | string {
     return this.userServices.getAllUsers();
   }
 
