@@ -2,12 +2,10 @@ import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 
 export interface IUser {
-  id: number;
+  id?: number;
   name: string;
   email: string;
-  age: number;
   gender: string;
-  isMarried: boolean;
   password: string;
 }
 
@@ -22,19 +20,15 @@ export class UsersService {
     {
       id: 1,
       name: 'Rahim',
-      age: 24,
       email: 'rahim@gmail.com',
       gender: 'male',
-      isMarried: false,
       password: '12345',
     },
     {
       id: 2,
       name: 'Puja',
-      age: 26,
       email: 'puja@gmail.com',
       gender: 'female',
-      isMarried: true,
       password: '12345',
     },
   ];

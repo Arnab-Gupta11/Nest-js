@@ -39,10 +39,10 @@ export class UsersController {
 
   @Post()
   createUser(@Body() user: CreateUserDTO, @Res() res: Response) {
-    const result = this.userServices.createUser(user);
+    // const result = this.userServices.createUser(user);
     res.status(HttpStatus.CREATED).json({
       status: HttpStatus.CREATED,
-      data: result,
+      data: 'result',
     });
   }
   @Patch()
