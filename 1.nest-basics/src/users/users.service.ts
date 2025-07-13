@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common';
+
 export interface IUser {
   id: number;
   name: string;
@@ -6,6 +8,8 @@ export interface IUser {
   gender: string;
   isMarried: boolean;
 }
+
+@Injectable()
 export class UsersService {
   users: IUser[] = [
     {
@@ -33,6 +37,7 @@ export class UsersService {
     return this.users.find((item) => item.id === id);
   }
   createUser(user: IUser) {
-    this.users.push();
+    this.users.push(user);
+    return this.users;
   }
 }

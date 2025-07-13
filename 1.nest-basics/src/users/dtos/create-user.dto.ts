@@ -25,7 +25,7 @@ export class CreateUserDTO {
 
   @IsString()
   @IsOptional()
-  gender?: string;
+  gender: string;
 
   @IsBoolean()
   isMarried: boolean;

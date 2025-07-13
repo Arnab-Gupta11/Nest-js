@@ -2,39 +2,55 @@ import {
   Body,
   Controller,
   Get,
+  HttpStatus,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
   Query,
-  ValidationPipe,
+  Res,
 } from '@nestjs/common';
 import { IUser, UsersService } from './users.service';
 import { CreateUserDTO } from './dtos/create-user.dto';
-import { GetUserParamDto } from './dtos/get-user-param.dto';
+import { Response } from 'express';
+import { UpdateUserDto } from './dtos/update-user.dto';
 
 @Controller('users')
 export class UsersController {
-  @Get(':isMarried')
+  constructor(private readonly userServices: UsersService) {}
+
+  @Get()
   getAllUsers(
     @Query('limit') limit: number,
     @Query('page') page: number,
-    @Param() params: GetUserParamDto,
+    // @Param() params: GetUserParamDto,
   ): IUser[] {
-    const userService = new UsersService();
-    console.log(params, limit);
-    return userService.getAllUsers();
+    return this.userServices.getAllUsers();
   }
 
-  @Get(':id/:name/:gender')
-  getUserById(
-    @Param('id', ParseIntPipe) id: string,
-    @Param('gender') gender: string,
-  ) {
-    return [id, gender];
+  @Get(':id')
+  getUserById(@Param('id', ParseIntPipe) id: number, @Res() res: Response) {
+    const result = this.userServices.getUserById(id);
+    res.status(HttpStatus.OK).json({
+      status: HttpStatus.OK,
+      data: result,
+    });
   }
 
   @Post()
-  createUser(@Body() user: CreateUserDTO) {
-    return 'A new user has been created.';
+  createUser(@Body() user: CreateUserDTO, @Res() res: Response) {
+    const result = this.userServices.createUser(user);
+    res.status(HttpStatus.CREATED).json({
+      status: HttpStatus.CREATED,
+      data: result,
+    });
+  }
+  @Patch()
+  updateUser(@Body() user: UpdateUserDto, @Res() res: Response) {
+    // const result = this.userServices.createUser(user);
+    res.status(HttpStatus.OK).json({
+      status: HttpStatus.OK,
+      data: user,
+    });
   }
 }
