@@ -6,6 +6,5 @@ import { UserModule } from 'src/users/users.module';
 @Module({
   providers: [TweetService],
   controllers: [TweetController],
-  imports: [UserModule], //Only module can import.
 })
 export class TweetModule {}

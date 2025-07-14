@@ -7,7 +7,7 @@ import {
   Query,
   Res,
 } from '@nestjs/common';
-import {  UsersService } from './users.service';
+import { UsersService } from './users.service';
 import { CreateUserDTO } from './dtos/create-user.dto';
 import { Response } from 'express';
 
@@ -16,21 +16,24 @@ export class UsersController {
   constructor(private readonly userServices: UsersService) {}
 
   @Get()
-  getAllUsers(
+  async getAllUsers(
     @Query('limit') limit: number,
     @Query('page') page: number,
-    // @Param() params: GetUserParamDto,
+    @Res() res: Response,
   ) {
-
+    const result = await this.userServices.getAllUsers();
+    res.status(HttpStatus.OK).json({
+      status: HttpStatus.OK,
+      data: result,
+    });
   }
 
-
   @Post()
-  createUser(@Body() user: CreateUserDTO, @Res() res: Response) {
-    // const result = this.userServices.createUser(user);
+  async createUser(@Body() user: CreateUserDTO, @Res() res: Response) {
+    const result = await this.userServices.createUser(user);
     res.status(HttpStatus.CREATED).json({
       status: HttpStatus.CREATED,
-      data: 'result',
+      data: result,
     });
   }
 }

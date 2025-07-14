@@ -4,11 +4,8 @@ import { UsersService } from 'src/users/users.service';
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject(forwardRef(() => UsersService))
-    private readonly userService: UsersService,
   ) {}
 
-  isAuthenticated: boolean = false;
 
   loginUser(email: string, pass: string) {
   }
