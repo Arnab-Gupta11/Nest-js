@@ -5,7 +5,6 @@ import { UserModule } from './users/users.module';
 import { TweetModule } from './tweet/tweet.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Users } from './users/user.entity';
 import { ProfileModule } from './profile/profile.module';
 
 @Module({
@@ -13,6 +12,7 @@ import { ProfileModule } from './profile/profile.module';
     UserModule,
     TweetModule,
     AuthModule,
+    ProfileModule,
 
     // ====> Asynchronus connection <====
 
@@ -31,8 +31,6 @@ import { ProfileModule } from './profile/profile.module';
         database: 'nestjs',
       }),
     }),
-
-    ProfileModule,
 
     // ====> synchronus connection <====
     // TypeOrmModule.forRoot({

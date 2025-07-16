@@ -1,5 +1,4 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
+import { Injectable } from '@nestjs/common';
 import { CreateUserDTO } from './dtos/create-user.dto';
 import { Repository } from 'typeorm';
 import { Users } from './user.entity';
@@ -16,20 +15,11 @@ export class UsersService {
     return await this.userRepository.find();
   }
 
-  async createUser(userDTO: CreateUserDTO) {
+  public async createUser(userDTO: CreateUserDTO) {
     //Check if user already exist.
-    const user = await this.userRepository.findOne({
-      where: {
-        email: userDTO.email,
-      },
-    });
-    if (user) {
-      return 'A user with this email already exist.';
-    }
-
+    userDTO.profile = userDTO.profile ?? {};
     //Create New User.
     let newUser = this.userRepository.create(userDTO);
-    newUser = await this.userRepository.save(newUser);
-    return newUser;
+    return await this.userRepository.save(newUser);
   }
 }

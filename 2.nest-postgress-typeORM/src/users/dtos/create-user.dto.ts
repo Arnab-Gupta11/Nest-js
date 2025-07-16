@@ -27,5 +27,5 @@ export class CreateUserDTO {
   email: string;
 
   @IsOptional()
-  profile: CreateProfileDto | null;
+  profile?: CreateProfileDto;
 }

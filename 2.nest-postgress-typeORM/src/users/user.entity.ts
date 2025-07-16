@@ -38,7 +38,9 @@ export class Users {
   })
   email: string;
 
-  @OneToOne(() => Profiles)
+  @OneToOne(() => Profiles, {
+    cascade: ['insert'],
+  })
   @JoinColumn()
   profile?: Profiles;
 

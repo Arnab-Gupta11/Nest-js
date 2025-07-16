@@ -6,6 +6,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+
 export class CreateProfileDto {
   @IsString({ message: 'First name should be a string value.' })
   @MinLength(3, { message: 'First Name should have at least 3 charecter.' })
