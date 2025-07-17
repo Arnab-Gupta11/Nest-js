@@ -31,4 +31,25 @@ export class AuthService {
       throw error;
     }
   }
+
+  async signIn(user: CreateUserDTO) {
+    const isUserExit = await this.prisma.user.findUnique({
+      where: {
+        email: user.email,
+      },
+    });
+    if (!isUserExit) {
+      throw new ForbiddenException('Account with this email does not exist.');
+    }
+
+    const isPasswordMatches = await argon.verify(
+      isUserExit.hash,
+      user.password,
+    );
+    if (!isPasswordMatches) {
+      throw new ForbiddenException('Password do not match.');
+    }
+
+    return user;
+  }
 }
